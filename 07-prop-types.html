@@ -1,25 +1,50 @@
 <body>
   <div id="root"></div>
-  <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
   <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
   <script type="text/babel">
     const rootElement = document.getElementById('root')
 
-    function SayHello({firstName, lastName}) {
-      return (
-        <div>
-          Hello {firstName} {lastName}!
-        </div>
-      )
-    }
-    SayHello.propTypes = {
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
+    // function SayHello({firstName, lastName}) {
+    //   return (
+    //     <div>
+    //       Hello {firstName} {lastName}!
+    //     </div>
+    //   )
+    // }
+    // SayHello.propTypes = {
+    //   firstName: PropTypes.string.isRequired,
+    //   lastName: PropTypes.string.isRequired,
+    // }
+
+    // const element = <SayHello firstName={false} />
+
+    const PrintFullName = (props) => (
+      <div>
+        {props.firstname}
+        {props.surname}
+      </div>
+    )
+
+    PrintFullName.propTypes = {
+      firstname: function(componentProps, key , companentName) {
+        if(typeof componentProps[key] !== "string") {
+          throw Error('first name should be string')
+        }
+      },
+      surname: function(componentProps, key , companentName) {
+        if(typeof componentProps[key] !== "string") {
+          throw Error('surname should be string')
+        }
+      }
     }
 
-    const element = <SayHello firstName={false} />
+    const element = <PrintFullName 
+    firstname = "Piyush"
+    surname = {1}
+    />
 
     ReactDOM.render(element, rootElement)
   </script>

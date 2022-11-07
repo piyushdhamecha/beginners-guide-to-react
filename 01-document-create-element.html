@@ -1,10 +1,47 @@
 <body>
   <div id="root"></div>
-  <script type="text/javascript">
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+    // const PrintHelloWorldOld = (props) => {
+    //   // let element = document.createElement('div')
+    //   // element.textContent = content
+    //   // element.className = 'container'
+    //   // rootElement.appendChild(element)
+    //   console.log(props)
+    //   return <div>test</div>
+    // }
+
+    const PrintHelloWorld = (props) => {
+      // let element = document.createElement('div')
+      // element.textContent = content
+      // element.className = 'container'
+      // rootElement.appendChild(element)
+      console.log(props)
+      return <div>{props.content}</div>
+    }
+
     const rootElement = document.getElementById('root')
-    const element = document.createElement('div')
-    element.textContent = 'Hello World'
-    element.className = 'container'
-    rootElement.appendChild(element)
+
+    // const parentElement =  React.createElement('div', {
+    //     className: 'container',
+    //     children: [
+    //       printHelloWorld('Hell world'),
+    //       printHelloWorld('Hi Piyush'),
+    //       printHelloWorld('Welcome to react project'),
+    //     ]
+    // })
+
+    const parentElement = (
+      <div className="container">
+        <PrintHelloWorld content="This is first text" />
+        <PrintHelloWorld content="Hello world" />
+        <PrintHelloWorld content="Hi Piyush" />
+      </div>
+    )
+    
+
+    ReactDOM.render(parentElement, rootElement)
   </script>
 </body>
