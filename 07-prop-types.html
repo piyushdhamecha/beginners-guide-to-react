@@ -25,25 +25,39 @@
       <div>
         {props.firstname}
         {props.surname}
+        {props.age}
       </div>
     )
 
+    // const stringValidationFunction = function(componentProps, key , companentName) {
+    //   if(typeof componentProps[key] !== "string") {
+    //     throw Error(key + ' name should be string')
+    //   }
+    // }
+    
+    // debugger
+    // const PropType = {
+    //   string: function(componentProps, key , companentName) {
+    //     if(typeof componentProps[key] !== "string") {
+    //       throw Error(key + ' should be string')
+    //     }
+    //   },
+    //   number: function(componentProps, key , companentName) {
+    //     if(typeof componentProps[key] !== "number") {
+    //       throw Error(key + ' should be number')
+    //     }
+    //   }
+    // }
+    
+    
     PrintFullName.propTypes = {
-      firstname: function(componentProps, key , companentName) {
-        if(typeof componentProps[key] !== "string") {
-          throw Error('first name should be string')
-        }
-      },
-      surname: function(componentProps, key , companentName) {
-        if(typeof componentProps[key] !== "string") {
-          throw Error('surname should be string')
-        }
-      }
+      firstname: PropTypes.string.isRequired,
+      surname: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired
     }
 
     const element = <PrintFullName 
-    firstname = "Piyush"
-    surname = {1}
+      
     />
 
     ReactDOM.render(element, rootElement)
