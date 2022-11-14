@@ -16,43 +16,63 @@
     // console.log(messageClassInstence.printResult())
     // debugger
 
+    const LabelComponent = (props) => {
+      return (
+        <span>
+          <strong>{props.counter}</strong>
+        </span>
+      );
+    };
+
     class MessageClass extends React.Component {
-      constructor() {
-        super()
+      constructor(props) {
+        super();
         this.state = {
-          name: "Piyush from state",
-          newName: 'test'
-        }
+          counter: 0,
+          isFetching: true,
+        };
+        console.log("Constructor called " + props.class);
       }
+
+      componentDidMount() {
+        setTimeout(() => {
+          debugger;
+          console.log("Component did mount called for " + this.props.class);
+          this.setState({
+            counter: this.state.counter + 1,
+            isFetching: false,
+          });
+        }, 3000);
+      }
+
+      increment = () => {
+        this.setState({ counter: this.state.counter + 1 });
+      };
 
       render() {
-        debugger
-        console.log(this)
-        // return <div className="message">Piyush</div>
+        debugger;
+        console.log("Render called " + this.props.class);
         return (
-          <input 
-            type="text" 
-            value={this.state.name}
-            onChange={(e) => this.setState({
-              name: e.target.value,
-            })}
-          />
-        )
+          <div>
+            {this.state.isFetching ? (
+              "Fetching..."
+            ) : (
+              <React.Fragment>
+                <button onClick={this.increment}>Increment</button>
+                <LabelComponent counter={this.state.counter} />
+              </React.Fragment>
+            )}
+          </div>
+        );
       }
-    }
-
-    const MessageFunction = (props) => {
-      return <div className="message">{props.children}</div>
     }
 
     const element = (
       <div className="container">
-        <MessageFunction>Hello World</MessageFunction>
-        <MessageFunction>Goodbye World</MessageFunction>
-        <MessageClass name="Piyush" />
+        <MessageClass class="class-1" />
       </div>
-    )
+    );
 
-    ReactDOM.render(element, document.getElementById('root'))
+    ReactDOM.render(element, document.getElementById("root"));
   </script>
 </body>
