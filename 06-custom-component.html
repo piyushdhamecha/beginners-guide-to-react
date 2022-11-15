@@ -29,23 +29,24 @@
         super();
         this.state = {
           counter: 0,
-          isFetching: true,
+          isFetching: false,
         };
         console.log("Constructor called " + props.class);
       }
 
       componentDidMount() {
-        setTimeout(() => {
-          debugger;
-          console.log("Component did mount called for " + this.props.class);
-          this.setState({
-            counter: this.state.counter + 1,
-            isFetching: false,
-          });
-        }, 3000);
+        // setTimeout(() => {
+        //   debugger;
+        //   console.log("Component did mount called for " + this.props.class);
+        //   this.setState({
+        //     counter: this.state.counter + 1,
+        //     isFetching: false,
+        //   });
+        // }, 3000);
       }
 
       increment = () => {
+        console.log(this.props);
         this.setState({ counter: this.state.counter + 1 });
       };
 
@@ -54,12 +55,14 @@
         console.log("Render called " + this.props.class);
         return (
           <div>
-            {this.state.isFetching ? (
+            {this.state && this.state.isFetching ? (
               "Fetching..."
             ) : (
               <React.Fragment>
-                <button onClick={this.increment}>Increment</button>
-                <LabelComponent counter={this.state.counter} />
+                <button className={this.props.class} onClick={this.increment}>
+                  Increment
+                </button>
+                <LabelComponent counter={this.state && this.state.counter} />
               </React.Fragment>
             )}
           </div>
@@ -67,9 +70,64 @@
       }
     }
 
+    class LazyComponent extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          class: "",
+        };
+      }
+      componentDidMount() {
+        setTimeout(() => {
+          this.setState({ class: "class-3" });
+        }, 3000);
+      }
+
+      render() {
+        debugger;
+        return <MessageClass class={this.state.class} />;
+      }
+    }
+
+    // const useState = (defaultValue) => {
+    //   const value = defaultValue
+
+    //   const setState = (newValue) => {
+    //     value = newValue
+    //   }
+
+    //   return [value, setState]
+    // }
+
+    // const testFunc = () => {
+    //   const a = useState("Test")
+    //   console.log(a[1])
+    // }
+
+    const MessageFuncComponent = (props) => {
+      const [value, setValue] = React.useState(0);
+      const [isFetching, setIsFetching] = React.useState(true);
+
+      const increment = () => {
+        setValue(value + 1);
+        setIsFetching(false);
+      };
+
+      return (
+        <div>
+          <button onClick={increment} className={props.class}>
+            Increment
+          </button>
+          <span>
+            <strong>{value}</strong>
+          </span>
+        </div>
+      );
+    };
+
     const element = (
       <div className="container">
-        <MessageClass class="class-1" />
+        <MessageFuncComponent class="class-func-1" />
       </div>
     );
 
