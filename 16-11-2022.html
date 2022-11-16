@@ -1,0 +1,98 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+    const LabelComponent = (props) => {
+      return (
+        <span>
+          <strong>{props.counter}</strong>
+        </span>
+      );
+    };
+
+    const users = [
+      {
+        name: "Piyush",
+        isActive: true,
+        role: "TEACHER",
+      },
+      {
+        name: "Naksh",
+        isActive: false,
+        role: "STUDENT",
+      },
+      {
+        name: "User - 1",
+        isActive: true,
+        role: "MANAGEMENT",
+      },
+    ];
+
+    const MessageFuncComponent = (props) => {
+      const [activeOnly, setActiveOnly] = React.useState(false);
+      const [data, setData] = React.useState([]);
+
+      // componentDidMount
+      React.useEffect(() => {
+        console.log("use effect called");
+      }, []);
+
+      // React.useEffect(() => {
+      //   console.log("value has changed to " + value);
+      // }, [value]);
+
+      React.useEffect(() => {
+        console.log("activeOnly has changed to " + activeOnly);
+        debugger;
+        if (activeOnly === false) {
+          setData(users);
+        } else {
+          const newData = users.filter(({ isActive }) => isActive === true);
+          setData(newData);
+        }
+      }, [activeOnly]);
+
+      const increment = () => {
+        setValue(value + 1);
+        setIsFetching(false);
+      };
+
+      return (
+        <div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="active"
+                value="isActiveOnly"
+                checked={activeOnly}
+                onChange={() => setActiveOnly(!activeOnly)}
+              />
+              Is active only
+            </label>
+          </div>
+          <table>
+            <th>Name</th>
+            <th>isActive</th>
+            {data.map(({ name, isActive }) => (
+              <tr>
+                <td>{name}</td>
+                <td>{isActive.toString()}</td>
+              </tr>
+            ))}
+          </table>
+        </div>
+      );
+    };
+
+    const element = (
+      <div className="container">
+        <MessageFuncComponent class="class-func-1" />
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById("root"));
+  </script>
+</body>
