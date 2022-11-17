@@ -1,0 +1,64 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+    const Todo = () => {
+      const [inputValue, setInputValue] = React.useState("");
+      const [list, setList] = React.useState([]);
+      const inputRef = React.useRef();
+      const videoRef = React.useRef();
+
+      React.useEffect(() => {
+        inputRef.current.focus();
+        console.log(videoRef);
+      }, []);
+
+      const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+      };
+
+      const handleButtonClick = () => {
+        const newList = [...list];
+
+        newList.push(inputValue);
+
+        setList(newList);
+        setInputValue("");
+      };
+
+      return (
+        <div>
+          <input
+            ref={inputRef}
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+          />
+          <button onClick={handleButtonClick}>Add</button>
+          <div>
+            {list.map((item) => {
+              return <div>{item}</div>;
+            })}
+          </div>
+          <video
+            src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+            width="250"
+            ref={videoRef}
+          />
+          <button onClick={() => videoRef.current.play()}>Play</button>
+          <button onClick={() => videoRef.current.pause()}>Pause</button>
+        </div>
+      );
+    };
+
+    const element = (
+      <div className="container">
+        <Todo />
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById("root"));
+  </script>
+</body>
