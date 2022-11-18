@@ -1,0 +1,37 @@
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/babel">
+    const ImageToggle = () => {
+      const imgRef = React.useRef();
+
+      const changeImage = (imageSrc) => {
+        debugger;
+        imgRef.current.src = imageSrc;
+      };
+
+      return (
+        <div>
+          <img width="200" height="200" ref={imgRef} />
+          <div>
+            <button onClick={() => changeImage("/cat.jpg")}>Load cat</button>
+            <button onClick={() => changeImage("/dog.jpg")}>Load dog</button>
+            <button onClick={() => changeImage("/bridge.jpg")}>
+              Load bridge
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const element = (
+      <div className="container">
+        <ImageToggle />
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById("root"));
+  </script>
+</body>
